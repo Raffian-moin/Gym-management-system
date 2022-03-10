@@ -27,13 +27,20 @@
 
             <!-- Container Fluid-->
             <div class="container-fluid" id="container-wrapper">
-                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800"> @yield('page-title') </h1>
-                    @yield('breadcumb')
+                <div class="mb-3">
+                    <div class="alert alert-light d-sm-flex align-items-center justify-content-between mb-4">
+                        @yield('breadcumb')
+                        @yield('button')
+                    </div>
                 </div>
-
                 <div class="row mb-3">
-                    @yield('content')
+                    <div class="col-xl-12 col-lg-7">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                @yield('content')
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!--Row-->
             </div>

@@ -32,3 +32,9 @@ Route::get('/clear', function () {
 });
 
 Route::get('/admin/dashboard', [\App\Http\Controllers\Admin\HomeController::class, 'index']);
+
+Route::prefix('admin')->group(function () {
+    Route::resources([
+        'branches' => \App\Http\Controllers\Admin\BranchController::class,
+    ]);
+});

@@ -15,15 +15,15 @@
       <div class="sidebar-heading">
         Features
       </div>
-      <li class="nav-item">
+      <li class="nav-item @yield('branch-menu')">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap"
           aria-expanded="true" aria-controls="collapseBootstrap">
           <i class="far fa-fw fa-window-maximize"></i>
           <span>Branch</span>
         </a>
-        <div id="collapseBootstrap" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
+        <div id="collapseBootstrap" class="collapse @yield('collapse-show')" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="alerts.html">Branch</a>
+            <a class="collapse-item @yield('branch-list')" href="{{ route('branches.index') }}">Branch</a>
           </div>
         </div>
       </li>
