@@ -39,5 +39,9 @@ Route::prefix('admin')->group(function () {
         'branches' => \App\Http\Controllers\Admin\BranchController::class,
     ]);
 
+    Route::resources([
+        'departments' => \App\Http\Controllers\Admin\DepartmentController::class,
+    ]);
+
     // Route::get('/branches/delete/{branch}',)
 });
