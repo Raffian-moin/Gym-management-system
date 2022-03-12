@@ -24,6 +24,8 @@
    </div>
 @endsection
 
+@section('page_header', 'Create Branch')
+
 {{-- @include('admin.layouts.error')
 @include('admin.layouts.success') --}}
 

@@ -34,7 +34,10 @@ Route::get('/clear', function () {
 Route::get('/admin/dashboard', [\App\Http\Controllers\Admin\HomeController::class, 'index']);
 
 Route::prefix('admin')->group(function () {
+    Route::get('/branches/delete/{branch}', [\App\Http\Controllers\Admin\BranchController::class, 'delete'])->name('branch.delete');
     Route::resources([
         'branches' => \App\Http\Controllers\Admin\BranchController::class,
     ]);
+
+    // Route::get('/branches/delete/{branch}',)
 });

@@ -17,7 +17,8 @@ class BranchController extends Controller
      */
     public function index()
     {
-        return view('admin.branch.list');
+        $branches = Branch::all();
+        return view('admin.branch.list',compact("branches"));
     }
 
     /**
@@ -45,7 +46,7 @@ class BranchController extends Controller
                 'name' => 'required',
                 'mobile_number' => 'required',
                 'address' => 'required',
-                'email' => 'email:rfc,dns',
+                'email' => 'sometimes|nullable|email:rfc,dns',
             ]);
 
             if ($validator->fails()) {
@@ -78,7 +79,7 @@ class BranchController extends Controller
      */
     public function show(Branch $branch)
     {
-        //
+        dd('ok');
     }
 
     /**
@@ -89,7 +90,7 @@ class BranchController extends Controller
      */
     public function edit(Branch $branch)
     {
-        //
+        return view('admin.branch.edit',compact("branch"));
     }
 
     /**
@@ -101,7 +102,37 @@ class BranchController extends Controller
      */
     public function update(Request $request, Branch $branch)
     {
-        //
+        try {
+            $inputs = $request->all();
+
+            $validator = Validator::make($request->all(), [
+                'name' => 'required',
+                'mobile_number' => 'required',
+                'address' => 'required',
+                'email' => 'sometimes|nullable|email:rfc,dns',
+            ]);
+
+            if ($validator->fails()) {
+                return back()
+                    ->withErrors($validator)
+                    ->withInput();
+            } else {
+                DB::beginTransaction();
+
+                $branch->update($inputs);
+                // Branch::create($inputs);
+
+                DB::commit();
+
+                session()->flash('success', 'Branch Updated successfully!');
+                return back();
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()
+                ->withErrors($e->getMessage())
+                ->withInput($request->all());
+        }
     }
 
     /**
@@ -110,8 +141,13 @@ class BranchController extends Controller
      * @param  \App\Models\Admin\Branch  $branch
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Branch $branch)
+    public function delete(Branch $branch)
     {
-        //
+        $branch = $branch->delete();
+        if ($branch) {
+            session()->flash('success', 'Branch Deleted successfully!');
+            return back();
+        }
+        
     }
 }

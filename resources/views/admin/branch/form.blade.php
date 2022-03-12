@@ -1,3 +1,5 @@
+<div class="card mb-3">
+    <div class="card-body">
 @include('admin.layouts.error')
 @include('admin.layouts.success')
 
@@ -13,11 +15,19 @@
     <div class="col-sm-6 form-group">
         <label class="font-weight-bold control-label" for="name">Mobile Number</label>
         <sup class="text-danger font-weight-bold">*</sup>
-        {!! Form::text('mobile_number', null, ['class'=>'form-control form-control-sm']) !!}
+
+        @php
+            echo Form::text('mobile_number', null, formClass('mobile_number', $errors));
+            echo inputFieldError($errors, 'mobile_number');
+        @endphp
+
     </div>
     <div class="col-sm-6 form-group">
         <label class="font-weight-bold control-label" for="name">Email</label>
-        {!! Form::email('email', null, ['class'=>'form-control form-control-sm']) !!}
+        @php
+            echo Form::text('email', null, formClass('email', $errors));
+            echo inputFieldError($errors, 'email');
+        @endphp
     </div>
     <div class="col-sm-6 form-group">
         <label class="font-weight-bold" for="name">Address</label>
@@ -31,4 +41,7 @@
         <i class="fas fa-save mr-1"></i>
         Save
     </button>
+</div>
+
+</div>
 </div>

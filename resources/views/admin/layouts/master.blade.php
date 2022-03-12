@@ -27,19 +27,18 @@
 
             <!-- Container Fluid-->
             <div class="container-fluid" id="container-wrapper">
-                <div class="mb-3">
+                <div class="mb-2">
                     <div class="alert alert-light d-sm-flex align-items-center justify-content-between mb-4">
                         @yield('breadcumb')
                         @yield('button')
                     </div>
                 </div>
+
+                @yield('search')
+
                 <div class="row mb-3">
                     <div class="col-xl-12 col-lg-7">
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                @yield('content')
-                            </div>
-                        </div>
+                        @yield('content')
                     </div>
                 </div>
                 <!--Row-->
@@ -47,7 +46,7 @@
             <!---Container Fluid-->
         </div>
         <!-- Footer -->
-        @include('admin.layouts.footer')
+        {{-- @include('admin.layouts.footer') --}}
         <!-- Footer -->
     </div>
   </div>

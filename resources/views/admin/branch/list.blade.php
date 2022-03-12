@@ -24,73 +24,57 @@
    </div>
 @endsection
 
+@if (!$branches->isEmpty())
+    @section('search')
+        @include('admin.branch.search')
+    @endsection
+@endif
+
 @section('content')
-<div class="container-fluid" id="container-wrapper">
-    <div class="row">
-        <div class="col-lg-12 mb-4">
-            <!-- Simple Tables -->
-            <div class="card">
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                 <a href="{{ route('branches.create')}}" class="btn btn-info btn-icon-split">
-                    <span class="icon text-white-50">
-                      <i class="fas fa-info-circle"></i>
-                    </span>
-                    <span class="text">Split Button Info</span>
-                  </a>
-            </div>
-            <div class="table-responsive">
-                <table class="table align-items-center table-flush">
-                <thead class="thead-light">
-                    <tr>
-                    <th>Order ID</th>
-                    <th>Customer</th>
-                    <th>Item</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    <td><a href="#">RA0449</a></td>
-                    <td>Udin Wayang</td>
-                    <td>Nasi Padang</td>
-                    <td><span class="badge badge-success">Delivered</span></td>
-                    <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-                    </tr>
-                    <tr>
-                    <td><a href="#">RA5324</a></td>
-                    <td>Jaenab Bajigur</td>
-                    <td>Gundam 90' Edition</td>
-                    <td><span class="badge badge-warning">Shipping</span></td>
-                    <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-                    </tr>
-                    <tr>
-                    <td><a href="#">RA8568</a></td>
-                    <td>Rivat Mahesa</td>
-                    <td>Oblong T-Shirt</td>
-                    <td><span class="badge badge-danger">Pending</span></td>
-                    <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-                    </tr>
-                    <tr>
-                    <td><a href="#">RA1453</a></td>
-                    <td>Indri Junanda</td>
-                    <td>Hat Rounded</td>
-                    <td><span class="badge badge-info">Processing</span></td>
-                    <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-                    </tr>
-                    <tr>
-                    <td><a href="#">RA1998</a></td>
-                    <td>Udin Cilok</td>
-                    <td>Baby Powder</td>
-                    <td><span class="badge badge-success">Delivered</span></td>
-                    <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-                    </tr>
-                </tbody>
-                </table>
-            </div>
-            <div class="card-footer"></div>
-            </div>
-        </div>
+
+@include('admin.layouts.success')
+@include('admin.layouts.error')
+
+@if (!$branches->isEmpty())
+    <table class="table table-bordered table-striped align-items-center table-flush">
+        <thead class="bg-secondary bg-gradient text-white">
+            <tr>
+            <th>SL</th>
+            <th>Name</th>
+            <th>Mobile Number</th>
+            <th>Address</th>
+            <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($branches as $branch)
+            <tr>
+                <td>{{ $loop->index + 1 }}</td>
+                <td>{{ $branch->name }}</td>
+                <td>{{ $branch->mobile_number }}</td>
+                <td>{{ $branch->address }}</td>
+                <td>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Actions
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ route('branches.edit',$branch) }}">Edit</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ route('branches.show',$branch) }}">View</a>
+                            <div class="dropdown-divider"></div>
+                                {{-- <button>Delete User</button> --}}
+                                <a class="dropdown-item" onclick="alert('Do you want to delete this item ?')" href="{{ route('branch.delete',$branch) }}">Delete</a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+@else
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        No Data Found to Display
     </div>
-</div>
+@endif
 @endsection
