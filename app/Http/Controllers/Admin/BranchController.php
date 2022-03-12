@@ -79,7 +79,7 @@ class BranchController extends Controller
      */
     public function show(Branch $branch)
     {
-        dd('ok');
+        return view('admin.branch.view', compact("branch"));
     }
 
     /**
@@ -117,18 +117,15 @@ class BranchController extends Controller
                     ->withErrors($validator)
                     ->withInput();
             } else {
-                DB::beginTransaction();
 
-                $branch->update($inputs);
-                // Branch::create($inputs);
-
-                DB::commit();
+                DB::transaction(function () use($branch, $inputs) {
+                    $branch->update($inputs);
+                });
 
                 session()->flash('success', 'Branch Updated successfully!');
                 return back();
             }
         } catch (\Exception $e) {
-            DB::rollBack();
             return back()
                 ->withErrors($e->getMessage())
                 ->withInput($request->all());
